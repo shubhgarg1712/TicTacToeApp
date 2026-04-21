@@ -14,7 +14,9 @@ public class TicTacToeApp {
         printBoard();
         
         int slot = getPlayerInput();
-        System.out.println("You entered slot: " + slot);
+        int[] indices = convertSlotToIndices(slot);
+        
+        System.out.println("Converted Slot " + slot + " to Row: " + indices[0] + ", Col: " + indices[1]);
     }
 
     private static void initializeBoard() {
@@ -54,5 +56,12 @@ public class TicTacToeApp {
     private static int getPlayerInput() {
         System.out.print("Enter a slot number (1-9): ");
         return scanner.nextInt();
+    }
+
+    private static int[] convertSlotToIndices(int slot) {
+        int index = slot - 1; // Zero-based indexing
+        int row = index / 3;
+        int col = index % 3;
+        return new int[]{row, col};
     }
 }
