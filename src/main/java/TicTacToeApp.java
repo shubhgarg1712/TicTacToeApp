@@ -15,8 +15,16 @@ public class TicTacToeApp {
         
         int slot = getPlayerInput();
         int[] indices = convertSlotToIndices(slot);
+        int row = indices[0];
+        int col = indices[1];
         
-        System.out.println("Converted Slot " + slot + " to Row: " + indices[0] + ", Col: " + indices[1]);
+        if (isValidMove(row, col)) {
+            System.out.println("Move accepted!");
+            board[row][col] = currentPlayerSymbol;
+            printBoard();
+        } else {
+            System.out.println("Invalid move. The cell is either out of bounds or already occupied.");
+        }
     }
 
     private static void initializeBoard() {
@@ -59,9 +67,17 @@ public class TicTacToeApp {
     }
 
     private static int[] convertSlotToIndices(int slot) {
-        int index = slot - 1; // Zero-based indexing
+        int index = slot - 1; 
         int row = index / 3;
         int col = index % 3;
         return new int[]{row, col};
+    }
+
+    private static boolean isValidMove(int row, int col) {
+        // Check boundaries and if cell is empty
+        if (row >= 0 && row < 3 && col >= 0 && col < 3) {
+            return board[row][col] == '-';
+        }
+        return false;
     }
 }
