@@ -36,6 +36,11 @@ public class TicTacToeApp {
                     break;
                 }
 
+                if (checkDraw()) {
+                    System.out.println("It's a draw!");
+                    break;
+                }
+
                 switchTurn();
             } else {
                 System.out.println("Invalid move. The cell is either out of bounds or already occupied.");
@@ -127,5 +132,16 @@ public class TicTacToeApp {
         if (board[0][0] == symbol && board[1][1] == symbol && board[2][2] == symbol) return true;
         if (board[0][2] == symbol && board[1][1] == symbol && board[2][0] == symbol) return true;
         return false;
+    }
+
+    private static boolean checkDraw() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (board[i][j] == '-') {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
