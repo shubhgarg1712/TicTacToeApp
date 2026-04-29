@@ -13,24 +13,27 @@ public class TicTacToeApp {
         performToss();
         printBoard();
         
-        int slot;
-        if (currentPlayerSymbol == player1Symbol) {
-            slot = getPlayerInput();
-        } else {
-            slot = getComputerMove();
-            System.out.println("Computer chose slot: " + slot);
-        }
+        while (true) {
+            int slot;
+            if (currentPlayerSymbol == player1Symbol) {
+                slot = getPlayerInput();
+            } else {
+                slot = getComputerMove();
+                System.out.println("Computer chose slot: " + slot);
+            }
 
-        int[] indices = convertSlotToIndices(slot);
-        int row = indices[0];
-        int col = indices[1];
-        
-        if (isValidMove(row, col)) {
-            System.out.println("Move accepted!");
-            updateBoard(row, col, currentPlayerSymbol);
-            printBoard();
-        } else {
-            System.out.println("Invalid move. The cell is either out of bounds or already occupied.");
+            int[] indices = convertSlotToIndices(slot);
+            int row = indices[0];
+            int col = indices[1];
+            
+            if (isValidMove(row, col)) {
+                System.out.println("Move accepted!");
+                updateBoard(row, col, currentPlayerSymbol);
+                printBoard();
+                switchTurn();
+            } else {
+                System.out.println("Invalid move. The cell is either out of bounds or already occupied.");
+            }
         }
     }
 
@@ -100,5 +103,13 @@ public class TicTacToeApp {
             indices = convertSlotToIndices(slot);
         } while (!isValidMove(indices[0], indices[1]));
         return slot;
+    }
+
+    private static void switchTurn() {
+        if (currentPlayerSymbol == 'X') {
+            currentPlayerSymbol = 'O';
+        } else {
+            currentPlayerSymbol = 'X';
+        }
     }
 }
