@@ -13,7 +13,14 @@ public class TicTacToeApp {
         performToss();
         printBoard();
         
-        int slot = getPlayerInput();
+        int slot;
+        if (currentPlayerSymbol == player1Symbol) {
+            slot = getPlayerInput();
+        } else {
+            slot = getComputerMove();
+            System.out.println("Computer chose slot: " + slot);
+        }
+
         int[] indices = convertSlotToIndices(slot);
         int row = indices[0];
         int col = indices[1];
@@ -82,5 +89,16 @@ public class TicTacToeApp {
 
     private static void updateBoard(int row, int col, char symbol) {
         board[row][col] = symbol;
+    }
+
+    private static int getComputerMove() {
+        Random rand = new Random();
+        int slot;
+        int[] indices;
+        do {
+            slot = rand.nextInt(9) + 1;
+            indices = convertSlotToIndices(slot);
+        } while (!isValidMove(indices[0], indices[1]));
+        return slot;
     }
 }
